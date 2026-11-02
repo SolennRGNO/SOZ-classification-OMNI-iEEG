@@ -155,12 +155,9 @@ python -m scripts.ml.logistic_baseline \
 
 ## Limitations and data availability
 
-This repository distributes **no clinical data, data access rights, test suite, or validation reports**. Obtain authorized recordings and annotations independently, and verify their release-specific definitions. See the upstream OMNI-iEEG resources below for dataset information; their availability does not grant access or redistribution permission through this repository.
+Running the complete pipeline requires access to the OMNI-iEEG data and appropriate computing resources. HPC scripts were developed for the Fir cluster and require configuration before use in other environments.
 
-Every `CONFIGURE_*` path or account is a deployment placeholder. HPC launchers require institutional configuration and prerequisites; they cannot run end to end from a dependency installation alone. This public release has not been verified through a fresh package installation, end-to-end scientific execution, or HPC execution. Numerical parity with historical runs, clinical validity, and generalization to new populations remain unestablished.
-
-
-Retrospective outcome-based selection, imperfect clinical labels, electrode coverage, recording state, artifacts, and site/modality confounding limit interpretation. This is research software and makes no treatment recommendation.
+The study relies on retrospective clinical annotations and selected patient cohorts. SOZ labels may be uncertain, electrode coverage is limited, and recording conditions or differences between institutions may influence the extracted features. Consequently, the results should be interpreted as exploratory research rather than clinically validated predictions.
 
 ## References and acknowledgments
 
