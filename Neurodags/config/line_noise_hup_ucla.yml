@@ -1,0 +1,22 @@
+# Manually reviewed site-specific line-noise configuration for the 1 kHz
+# HUP/UCLA workflow. These lists result from review of the raw, unfiltered,
+# unnotched, and unresampled site-level spectra. They are decisions made by a
+# reviewer, not automatically generated harmonic series.
+
+protocol_version: "1.1.0"
+
+provenance:
+  source_report: "/CONFIGURE_SCRATCH/omni_hup_ucla_1khz_v3/line_noise_qc/raw_line_noise_qc_hup_ucla.html"
+  review_date: "2026-08-10"
+  reviewer: "user_provided_manual_review"
+  psd_window_duration_seconds: 8
+  psd_overlap_seconds: 0
+  original_sampling_frequency_eligibility_rule: "original_sampling_frequency_hz >= 1000"
+
+# Preserve these lists exactly as manually approved. Do not add intermediate
+# harmonics, expand either frequency family, or supply defaults for empty lists.
+sites:
+  hup:
+    notch_frequencies_hz: [60, 120, 180, 240, 300, 360, 420, 480]
+  ucla:
+    notch_frequencies_hz: [60, 120, 180, 240, 300, 360, 420, 480]

@@ -1,0 +1,23 @@
+# Detroit complexity is intentionally isolated from all baseline families.
+datasets: datasets_detroit_complexity.yml
+mount_point: cluster
+new_definitions:
+  - custom_nodes_complexity.py
+n_jobs: 1
+DerivativeDefinitions:
+  ComplexityFeatures:
+    overwrite: False
+    save: True
+    for_dataframe: False
+    nodes:
+      - id: 0
+        derivative: SourceFile
+      - id: 1
+        node: complexity_features
+        args:
+          source_path: id.0
+          channel_labels_csv: $channel_labels_csv
+          task: $task
+          recording_state: $recording_state
+DerivativeList:
+  - ComplexityFeatures

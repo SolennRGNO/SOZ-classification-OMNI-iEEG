@@ -1,0 +1,27 @@
+# Per-recording relative-bandpower extraction from already preprocessed FIF files.
+# The dataset configuration is generated from the frozen non-ictal cohort; see
+# scripts/features/build_hup_ucla_feature_manifest.py.
+datasets: datasets_hup_ucla_relative_bandpower.yml
+mount_point: cluster
+new_definitions:
+  - custom_nodes_relative_bandpower.py
+n_jobs: 1
+
+DerivativeDefinitions:
+  RelativeBandPower:
+    overwrite: False
+    save: True
+    for_dataframe: False
+    nodes:
+      - id: 0
+        derivative: SourceFile
+      - id: 1
+        node: relative_bandpower
+        args:
+          source_path: id.0
+          channel_labels_csv: $channel_labels_csv
+          task: $task
+          recording_state: $recording_state
+
+DerivativeList:
+  - RelativeBandPower

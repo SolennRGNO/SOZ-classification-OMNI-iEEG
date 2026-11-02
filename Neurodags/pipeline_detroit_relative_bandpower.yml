@@ -1,0 +1,23 @@
+# Detroit uses the frozen HUP/UCLA relative-bandpower implementation unchanged.
+datasets: datasets_detroit_relative_bandpower.yml
+mount_point: cluster
+new_definitions:
+  - custom_nodes_relative_bandpower.py
+n_jobs: 1
+DerivativeDefinitions:
+  RelativeBandPower:
+    overwrite: False
+    save: True
+    for_dataframe: False
+    nodes:
+      - id: 0
+        derivative: SourceFile
+      - id: 1
+        node: relative_bandpower
+        args:
+          source_path: id.0
+          channel_labels_csv: $channel_labels_csv
+          task: $task
+          recording_state: $recording_state
+DerivativeList:
+  - RelativeBandPower

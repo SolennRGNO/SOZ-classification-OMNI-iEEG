@@ -1,0 +1,32 @@
+# Site-specific line-noise configuration for the 1 kHz OpenIEEG workflow,
+# reviewed from the raw, unfiltered, unnotched and unresampled OpenIEEG spectra
+# produced by cluster/preprocessing/openieeg_spectral_qc. It mirrors the HUP/UCLA
+# configuration in form and in review rules; the frequencies below are the
+# 60 Hz mains family that the OpenIEEG (Detroit) raw spectra actually show.
+#
+# Evidence from openieeg_notch_candidates.csv / openieeg_dataset_summary.csv
+# (134 evaluable recordings, all Detroit, all originally 1000 Hz):
+#   60 Hz mains verdict on every recording (108 "60 Hz", 26 "both"; 0 "50 Hz").
+#   Mains-grid candidates above the prominence threshold, by fraction of
+#   recordings: 300 Hz 1.00, 180 Hz 0.99, 420 Hz 0.98, 60 Hz 0.94, 240 Hz 0.57,
+#   360 Hz 0.42, 120 Hz 0.39, 480 Hz 0.25.
+#   The 50 Hz family is essentially absent (400 Hz 0.13, 250 Hz 0.07,
+#   200 Hz 0.06, 350 Hz 0.04, 150 Hz 0.01, 50/100 Hz not above threshold).
+# The reviewed list is therefore the 60 Hz harmonic family below the 500 Hz
+# Nyquist of a 1000 Hz recording, exactly as for HUP and UCLA.
+
+protocol_version: "openieeg-1.0.0"
+
+provenance:
+  source_report: "/CONFIGURE_SCRATCH/omni_openieeg_qc_v1/line_noise_qc/openieeg_raw_spectral_qc.html"
+  review_date: "2026-08-26"
+  reviewer: "raw_psd_review_of_openieeg_spectral_qc"
+  psd_window_duration_seconds: 8
+  psd_overlap_seconds: 0
+  original_sampling_frequency_eligibility_rule: "original_sampling_frequency_hz >= 1000"
+
+# Preserve this list exactly as reviewed. Do not add intermediate harmonics,
+# expand the frequency family, or supply defaults for an empty list.
+sites:
+  openieeg:
+    notch_frequencies_hz: [60, 120, 180, 240, 300, 360, 420, 480]

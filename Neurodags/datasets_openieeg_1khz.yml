@@ -1,0 +1,22 @@
+# Fallback dataset entry for pipeline_openieeg_1khz.yml.
+#
+# The scale-out worker (scripts/preprocessing/build_subject_manifests.py
+# run-subject) always passes its own per-recording datasets YAML with
+# `neurodags run -d ...`, which overrides this file. It is kept so the pipeline
+# configuration resolves on its own, and so a manual whole-dataset invocation
+# reads the same OpenIEEG recordings the inventory does.
+#
+# sub-openieegUCLA* is excluded: those subjects belong to the `ucla` entry of
+# datasets2.yml and are preprocessed by the HUP/UCLA workflow.
+openieeg:
+  name: openieeg
+  skip: False
+  file_pattern:
+    cluster: "/CONFIGURE_DATA_ROOT/sub-openieeg*/**/*_ieeg.edf"
+    cluster_exclude: "/CONFIGURE_DATA_ROOT/sub-openieegUCLA*/**/*_ieeg.edf"
+  derivatives_path:
+    cluster: "/CONFIGURE_SCRATCH/omni_openieeg_1khz_v1/preprocessed/openieeg"
+  vars:
+    site: openieeg
+    dataset: openieeg
+    eligible_manifest_path: "/CONFIGURE_SCRATCH/omni_openieeg_1khz_v1/inventory/eligible_recordings_openieeg.csv"

@@ -1,0 +1,26 @@
+# NeuroDAGs 0.3.0 supports a glob string, not a CSV manifest, as file_pattern.
+# scripts/preprocessing/build_neurodags_index.py creates this versioned symlink
+# index from the verified eligible CSV and freezes NeuroDAGs' actual index order.
+hup:
+  name: hup
+  skip: False
+  file_pattern:
+    cluster: "/CONFIGURE_SCRATCH/omni_hup_ucla_1khz_v3/manifests/full_v1/indexed_inputs/hup/*_ieeg.edf"
+  derivatives_path:
+    cluster: "/CONFIGURE_SCRATCH/omni_hup_ucla_1khz_v3/preprocessed/hup"
+  vars:
+    site: hup
+    dataset: hup
+    eligible_manifest_path: "/CONFIGURE_SCRATCH/omni_hup_ucla_1khz_v3/manifests/full_v1/eligible_index_manifest_v1.csv"
+
+ucla:
+  name: ucla
+  skip: False
+  file_pattern:
+    cluster: "/CONFIGURE_SCRATCH/omni_hup_ucla_1khz_v3/manifests/full_v1/indexed_inputs/ucla/*_ieeg.edf"
+  derivatives_path:
+    cluster: "/CONFIGURE_SCRATCH/omni_hup_ucla_1khz_v3/preprocessed/ucla"
+  vars:
+    site: ucla
+    dataset: ucla
+    eligible_manifest_path: "/CONFIGURE_SCRATCH/omni_hup_ucla_1khz_v3/manifests/full_v1/eligible_index_manifest_v1.csv"

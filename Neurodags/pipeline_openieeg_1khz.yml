@@ -1,0 +1,34 @@
+# OpenIEEG 1-kHz preprocessing protocol. Identical to pipeline_hup_ucla_1khz.yml
+# except for the reviewed line-noise configuration, which is site-specific.
+# It writes the same Preprocessed1kHzNoBandpass derivative.
+datasets: datasets_openieeg_1khz.yml
+mount_point: cluster
+new_definitions:
+  - custom_nodes_1khz.py
+n_jobs: 1
+
+DerivativeDefinitions:
+  Preprocessed1kHzNoBandpass:
+    overwrite: False
+    save: True
+    for_dataframe: False
+    nodes:
+      - id: 0
+        derivative: SourceFile
+      - id: 1
+        node: preprocess_1khz_no_bandpass_report
+        args:
+          source_path: id.0
+          site: $site
+          dataset: $dataset
+          eligible_manifest_path: $eligible_manifest_path
+          min_original_sfreq: 1000
+          target_sfreq: 1000
+          l_freq: null
+          h_freq: null
+          epoch_duration_seconds: 8
+          epoch_overlap_seconds: 0
+          line_noise_config: config/line_noise_openieeg.yml
+
+DerivativeList:
+  - Preprocessed1kHzNoBandpass

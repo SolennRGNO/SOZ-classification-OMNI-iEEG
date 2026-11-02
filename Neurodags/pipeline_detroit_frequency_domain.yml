@@ -1,0 +1,23 @@
+# Detroit uses the frozen HUP/UCLA frequency-domain implementation unchanged.
+datasets: datasets_detroit_frequency_domain.yml
+mount_point: cluster
+new_definitions:
+  - custom_nodes_frequency_domain.py
+n_jobs: 1
+DerivativeDefinitions:
+  FrequencyDomainFeatures:
+    overwrite: False
+    save: True
+    for_dataframe: False
+    nodes:
+      - id: 0
+        derivative: SourceFile
+      - id: 1
+        node: frequency_domain_features
+        args:
+          source_path: id.0
+          channel_labels_csv: $channel_labels_csv
+          task: $task
+          recording_state: $recording_state
+DerivativeList:
+  - FrequencyDomainFeatures

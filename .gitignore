@@ -1,0 +1,17 @@
+.venv/
+data/
+# Local dataset pointer, including a symlink at the repository root.
+/data
+logs/
+results/
+docs/
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Live NeuroDAGs smoke-test configuration; keep historical snapshots eligible.
+/Neurodags/.pipeline_local.yml
+
+# Scheduler stdout/stderr can be written in any submission directory.
+*.out
+*.err

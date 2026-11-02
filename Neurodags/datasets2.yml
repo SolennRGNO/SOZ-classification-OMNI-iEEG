@@ -1,0 +1,63 @@
+# Which recordings to process, and where outputs go.
+#
+# ─────────────────────────────────────────────────────────────────────────────────────────────
+#  THIS IS THE ONE FILE YOU EDIT: the `cluster:` line under derivatives_path, so that you write
+#  to your own scratch space. The input path is shared and works as-is for everyone.
+# ─────────────────────────────────────────────────────────────────────────────────────────────
+#
+# Shared dataset definitions for inventories, line-noise configuration validation,
+# and subject manifests. Named paths select cluster or local inputs.
+#
+# INPUT — the Omni-iEEG dataset, read-only, shared by the group:
+#     /CONFIGURE_DATA_ROOT
+# You will also see it written as /CONFIGURE_PROJECT_PATH That is a
+# per-user symlink to exactly the same directory. The /CONFIGURE_PROJECT form is used here because it
+# is identical for every user, and because neurodags does NOT expand `~` in these paths.
+#
+# One EDF per recording; `sub-*/**/*_ieeg.edf` matches all 1048. Each has a `*_channels.tsv`
+# sidecar beside it containing recording channel metadata.
+
+ucla:
+  name: ucla
+  skip: False
+  file_pattern:
+    cluster: "/CONFIGURE_SCRATCH/omni_ieeg_analysis_refactor/data/sub-openieegUCLA*/**/*_ieeg.edf"
+    local:   "_outputs/fixture/sub-*/**/*_ieeg.fif"      # local synthetic input pattern
+  derivatives_path:
+    cluster: "/CONFIGURE_SCRATCH/omni_preprocessing"            # <-- EDIT: write the path out IN FULL
+    # NOT "$SCRATCH/..." and NOT "~/...". neurodags does not expand environment variables or ~
+    # in these paths; it would create a directory literally named '$SCRATCH' and write your
+    # results there without any error. `echo $SCRATCH` to see what yours expands to, then paste
+    # the result. Use absolute paths without $, ~ or CHANGEME.
+    local:   "_outputs/spectra"
+
+hup:
+  name: hup
+  skip: False
+  file_pattern:
+    cluster: "/CONFIGURE_SCRATCH/omni_ieeg_analysis_refactor/data/sub-hupHUP*/**/*_ieeg.edf"
+    local:   "_outputs/fixture/sub-*/**/*_ieeg.fif"      # local synthetic input pattern
+  derivatives_path:
+    cluster: "/CONFIGURE_SCRATCH/omni_preprocessing"            # <-- EDIT: write the path out IN FULL
+    # NOT "$SCRATCH/..." and NOT "~/...". neurodags does not expand environment variables or ~
+    # in these paths; it would create a directory literally named '$SCRATCH' and write your
+    # results there without any error. `echo $SCRATCH` to see what yours expands to, then paste
+    # the result. Use absolute paths without $, ~ or CHANGEME.
+    local:   "_outputs/spectra"
+
+# OpenIEEG, excluding the UCLA subjects that the `ucla` entry above already covers.
+# This entry exists for the raw pre-preprocessing spectral / line-noise diagnostic only;
+# it is NOT part of the HUP/UCLA 1 kHz preprocessing cohort and writes no derivatives.
+# `cluster_exclude` is subtracted from `cluster`, which keeps the two globs disjoint so
+# `openieeg` and `ucla` can be inventoried in the same run without collision.
+openieeg:
+  name: openieeg
+  skip: False
+  file_pattern:
+    cluster: "/CONFIGURE_SCRATCH/omni_ieeg_analysis_refactor/data/sub-openieeg*/**/*_ieeg.edf"
+    cluster_exclude: "/CONFIGURE_SCRATCH/omni_ieeg_analysis_refactor/data/sub-openieegUCLA*/**/*_ieeg.edf"
+    local:   "_outputs/fixture/sub-openieeg*/**/*_ieeg.fif"
+  derivatives_path:
+    # Diagnostic only: no preprocessed derivative is written under this entry.
+    cluster: "/CONFIGURE_SCRATCH/omni_openieeg_qc_v1/derivatives_unused"
+    local:   "_outputs/openieeg_qc"
