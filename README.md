@@ -162,6 +162,6 @@ The study relies on retrospective clinical annotations and selected patient coho
 ## References and acknowledgments
 
 - **OMNI-iEEG:** Duan, Zhang, and colleagues, *Omni-iEEG: A Large-Scale, Comprehensive iEEG Dataset and Benchmark for Epilepsy Research* (ICLR 2026). See the [paper](https://arxiv.org/abs/2602.16072), [project page](https://omni-ieeg.github.io/omni-ieeg/), and [upstream organization](https://github.com/Omni-iEEG). This internship code is distinct from the upstream dataset and benchmark contribution.
-- **NeuroDAGs:** independently developed external software by **Yorguin-José Mantilla-Ramos**; see its [upstream repository](https://github.com/yjmantilla/neurodags) and [package record](https://pypi.org/project/neurodags/). The local project graphs and adapters do not imply authorship of that engine.
+- **NeuroDAGs:** independently developed external software by **Yorguin-José Mantilla-Ramos**; see its [upstream repository](https://github.com/yjmantilla/neurodags) and [package record](https://pypi.org/project/neurodags/). Framework developed used in this project to implement the preprocessing and feature extraction pipelines.
 - **Research context:** This project was developed during a two-month research internship at Coco Lab, Université de Montréal, under the supervision of Pr. Karim Jerbi.
 - **License:** This project is licensed under the MIT License. See [LICENCE](LICENCE).
